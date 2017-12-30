@@ -1,0 +1,103 @@
+---
+title: "Udacity Project 1: Exploring Weather Trends"
+author: "Josh Goldberg"
+date: "12/29/2017"
+output: html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.height = 8,
+  fig.path = 'Figs/',
+  warning = FALSE,
+  message = FALSE
+  )
+```
+
+#### Load Libraries
+```{r}
+library(tidyverse)
+```
+
+#### Read Data
+```{r}
+city <- read_csv(
+  'results-2.csv',
+  col_type = cols(
+  year = col_integer(),
+  city = col_character(),
+  country = col_character(),
+  avg_temp = col_double()
+  )
+  )
+
+global <- read_csv(
+  'results.csv',
+  col_type = cols(
+  year = col_integer(),
+  avg_temp = col_double()
+  )
+  )
+
+```
+
+```{r}
+filter(city, is.na(avg_temp))
+filter(global, is.na(avg_temp))
+range(global$year)
+range(city$year)
+
+```
+
+```{r}
+city <- filter(city, year > 1750)
+```
+
+
+```{r}
+example <- readxl::read_excel('Moving Average Example.xlsx')
+
+movavg <- function(x, interval = 7) {
+  j <- interval
+  moving_avg <- vector(mode = 'double', length = length(x))
+  for(i in 1:length(x)) {
+    moving_avg[j] <- mean(x[i:interval])
+    if (interval >= length(x)) {
+      return(moving_avg)
+    } else {
+      interval <- interval + 1
+    }
+    j <- j + 1
+  }
+}
+
+(movavg(example$Sales))
+example$moving_avg <- (movavg(example$Sales))
+
+function_movavg <- data_frame(movavg(example$Sales))
+example2 <- readxl::read_excel('Moving Average Example.xlsx')
+solution_movavg <- filter(example2, !(is.na(X__2))) %>% 
+  select(X__2) %>% 
+  rename(solution_movavg = X__2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
