@@ -135,9 +135,11 @@ ggplot(data = filter(
 Despite its putative record-holding for cold temperatures in the U.S., Chicago, Illinois has been warmer over time compared to global moving average temperatures (five-year period) in the past couple hundred years. Note that global temperatures are less volatile than Chicago due to the amount of data consolidated (Chicago is one city, global includes many cities; in other words: [Law of Small Numbers](http://stats.org.uk/statistical-inference/TverskyKahneman1971.pdf).
 
 There are some exceptions in Chicago and global temperature trends:
-* In 1770, the dip in global temperatures is not as pronounced in Chicago.
-* In ~1779, the dip in temperature in Chicago is not visible in global temperatures. 
-* In 1995, the severe dip in Chicago temperatures is not pronounced in global temperatures.
+
+In 1770, the dip in global temperatures is not as pronounced in Chicago.
+In 1779, the dip in temperature in Chicago is not visible in global temperatures. 
+In 1995, the severe dip in Chicago temperatures is not pronounced in global temperatures.
+
 There are more trivial differences; however, generally speaking, the plot illustrates tandem trends between Chicago and global temperatures (with Chicago being consistently hotter).
 ```{r}
 ggplot(data = filter(
