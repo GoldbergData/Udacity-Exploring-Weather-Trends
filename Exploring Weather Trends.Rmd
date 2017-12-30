@@ -178,9 +178,9 @@ ggplot(data = filter(
 
 #### Cold Countries Weigh Down Global Averages
 Chicago's overall warmer temperature can be explained by the fact that its moving average temperatures are not impacted by the extremely cold moving average temperatures included in global calculations. Here are some of the coldest countries included in global temperature calculations: 
-```{r}
+```{r echo=FALSE}
 filter(cold_countries, country != 'United States') %>% 
-  kable()
+  kable(format = 'markdown')
 ```
 
 ```{r}
