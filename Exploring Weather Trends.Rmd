@@ -1,7 +1,7 @@
 ---
 title: 'Udacity Project 1: Exploring Weather Trends'
 author: "Josh Goldberg"
-date: "12/29/2017"
+date: "12/30/2017"
 output:
   github_document: default
   pdf_document: default
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(knitr)
 ```
-
+##### [Clone Git Link](https://github.com/GoldbergData/Udacity-Exploring-Weather-Trends.git)
 #### Read Data
 Used all cities data to have optionality when visualizing trends.
 ```{r}

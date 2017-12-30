@@ -1,7 +1,7 @@
 Udacity Project 1: Exploring Weather Trends
 ================
 Josh Goldberg
-12/29/2017
+12/30/2017
 
 #### Load Libraries
 
@@ -9,6 +9,8 @@ Josh Goldberg
 library(tidyverse)
 library(knitr)
 ```
+
+##### [Clone Git Link](https://github.com/GoldbergData/Udacity-Exploring-Weather-Trends.git)
 
 #### Read Data
 
