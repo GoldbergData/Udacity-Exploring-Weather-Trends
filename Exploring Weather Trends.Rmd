@@ -113,7 +113,8 @@ ggplot(data = filter(
   palette = 2
   ) +
   scale_x_continuous(breaks = seq(1750, 2010, 10)) +
-  labs(title = 'Global Temperature History', subtitle = 'Five-year Moving Average', x = 'Year', y = 'Temperature, Celcius') +
+  labs(title = 'Global Temperature History', 
+       subtitle = 'Five-year Moving Average', x = 'Year', y = 'Temperature, Celcius') +
   theme_minimal() +
   theme(
   axis.text.x = element_text(angle = 50, hjust = 1),
@@ -161,7 +162,8 @@ ggplot(data = filter(
   labels = c('United States', 'Chicago', 'Global')
   ) +
   scale_x_continuous(breaks = seq(1750, 2010, 10)) +
-  labs(title = 'Exploring Weather Trends', x = 'Year', subtitle = 'Five-year Moving Average', y = 'Temperature, Celcius') +
+  labs(title = 'Exploring Weather Trends', x = 'Year', 
+       subtitle = 'Five-year Moving Average', y = 'Temperature, Celcius') +
   theme_minimal() +
   theme(
   axis.text.x = element_text(angle = 50, hjust = 1),
@@ -204,7 +206,8 @@ ggplot(data = filter(
   )
   ) +
   scale_x_continuous(breaks = seq(1750, 2010, 10)) +
-  labs(title = 'Exploring Weather Trends', x = 'Year', subtitle = 'Five-year Moving Average', y = 'Temperature, Celcius') +
+  labs(title = 'Exploring Weather Trends', x = 'Year', 
+       subtitle = 'Five-year Moving Average', y = 'Temperature, Celcius') +
   theme_minimal() +
   theme(
   axis.text.x = element_text(angle = 50, hjust = 1),
