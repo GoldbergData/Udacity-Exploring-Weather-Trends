@@ -1,32 +1,20 @@
----
-title: 'Udacity Project 1: Exploring Weather Trends'
-author: "Josh Goldberg"
-date: "12/29/2017"
-output:
-  github_document: default
-  pdf_document: default
-  html_document: default
----
-
-```{r global_options, include=FALSE}
-knitr::opts_chunk$set(
-  fig.width = 12,
-  fig.height = 8,
-  fig.path = 'Figs/',
-  warning = FALSE,
-  message = FALSE
-  )
-```
+Udacity Project 1: Exploring Weather Trends
+================
+Josh Goldberg
+12/29/2017
 
 #### Load Libraries
-```{r}
+
+``` r
 library(tidyverse)
 library(knitr)
 ```
 
 #### Read Data
+
 Used all cities data to have optionality when visualizing trends.
-```{r}
+
+``` r
 cities <- read_csv(
   'results-3.csv',
   col_type = cols(
@@ -47,8 +35,10 @@ global <- read_csv(
 ```
 
 #### Function: Calculate Moving-average
+
 This functions takes a vector of numeric values and an interval designation as its inputs. The vector should include the data for calculating the moving-average. The interval is what period the moving-average should be calculated over. The function will place the calculated averages in the proper index as to allow easy binding of rows afterwards to the original data set (this can be witnessed later when the function is called)
-```{r Function}
+
+``` r
 movavg <- function(x, interval = 5) {
   j <- interval
   moving_avg <- vector(mode = 'double', length = length(x))
@@ -65,8 +55,10 @@ movavg <- function(x, interval = 5) {
 ```
 
 #### Transform Data
+
 Here the data is transformed in order to allow easy consolidation for visualization purposes. There is always another way to do something, but I decided to marry country data with city data so I can easily plot afterwards. I point this out because it can be confusing if you're only viewing the code. I also create some fields (view `global` and `result_all_country$city` below) solely for the purpose of data combination.
-```{r}
+
+``` r
 global$city <- 'global'
 global$country <- 'global'
 
@@ -95,12 +87,15 @@ cold_countries <- filter(result_all, moving_avg < 3, moving_avg > 0) %>%
   distinct(country)
 ```
 
-#### Key Visualization Considerations 
-Most of my considerations were listed above in the latter section, but I will repeat here for clarity, with further detail. I married data from different data sets to allow for easy visualization and comparison. This was a deviation from the original instructions to only pull temperature data for the closet major city to me. I liked the optionality of being able to summarize countries and find extreme temperature patterns affecting the aggregations. For example, The obvious warmth of Chicago compared to the world can be quickly discern by viewing the United States moving average temperatures in the same chart. The U.S. is in a relatively mild geography when it comes to climates. This interpretation of U.S. temperatures can be extrapolated to Chicago for quick understanding of Chicago's relative warmth. 
+#### Key Visualization Considerations
+
+Most of my considerations were listed above in the latter section, but I will repeat here for clarity, with further detail. I married data from different data sets to allow for easy visualization and comparison. This was a deviation from the original instructions to only pull temperature data for the closet major city to me. I liked the optionality of being able to summarize countries and find extreme temperature patterns affecting the aggregations. For example, The obvious warmth of Chicago compared to the world can be quickly discern by viewing the United States moving average temperatures in the same chart. The U.S. is in a relatively mild geography when it comes to climates. This interpretation of U.S. temperatures can be extrapolated to Chicago for quick understanding of Chicago's relative warmth.
 
 #### Global Historical Moving-average Temperatures
+
 Barring [extraordinary events](https://www.thoughtco.com/the-year-without-a-summer-1773771), global temperatures have been climbing over the past couple hundred years. The chart below could be mistaken for the stock market without aiding details, as occasional dips and a consistent upward trend is commonplace in the equity indexes.
-```{r}
+
+``` r
 ggplot(data = filter(
   result_all,
   year > 1754,
@@ -131,15 +126,15 @@ ggplot(data = filter(
   )
 ```
 
+![](Figs/unnamed-chunk-4-1.png)
+
 #### Chicago, Illinois vs. Global
+
 Despite its putative record-holding for cold temperatures in the U.S., Chicago, Illinois has been warmer over time compared to global moving average temperatures (five-year period) in the past couple hundred years. Note that global temperatures are less volatile than Chicago due to the amount of data consolidated (Chicago is one city, global includes many cities; in other words: [Law of Small Numbers](http://stats.org.uk/statistical-inference/TverskyKahneman1971.pdf).
 
-There are some exceptions in Chicago and global temperature trends:
-* In 1770, the dip in global temperatures is not as pronounced in Chicago.
-* In ~1779, the dip in temperature in Chicago is not visible in global temperatures. 
-* In 1995, the severe dip in Chicago temperatures is not pronounced in global temperatures.
-There are more trivial differences; however, generally speaking, the plot illustrates tandem trends between Chicago and global temperatures (with Chicago being consistently hotter).
-```{r}
+There are some exceptions in Chicago and global temperature trends: \* In 1770, the dip in global temperatures is not as pronounced in Chicago. \* In ~1779, the dip in temperature in Chicago is not visible in global temperatures. \* In 1995, the severe dip in Chicago temperatures is not pronounced in global temperatures. There are more trivial differences; however, generally speaking, the plot illustrates tandem trends between Chicago and global temperatures (with Chicago being consistently hotter).
+
+``` r
 ggplot(data = filter(
   result_all,
   year > 1754,
@@ -177,14 +172,21 @@ ggplot(data = filter(
   )
 ```
 
-#### Cold Countries Weigh Down Global Averages
-Chicago's overall warmer temperature can be explained by the fact that its moving average temperatures are not impacted by the extremely cold moving average temperatures included in global calculations. Here are some of the coldest countries included in global temperature calculations: 
-```{r echo=FALSE}
-filter(cold_countries, country != 'United States') %>% 
-  kable(format = 'markdown')
-```
+![](Figs/unnamed-chunk-5-1.png)
 
-```{r}
+#### Cold Countries Weigh Down Global Averages
+
+Chicago's overall warmer temperature can be explained by the fact that its moving average temperatures are not impacted by the extremely cold moving average temperatures included in global calculations. Here are some of the coldest countries included in global temperature calculations:
+
+| country    |
+|:-----------|
+| Russia     |
+| Kazakhstan |
+| Norway     |
+| China      |
+| Canada     |
+
+``` r
 ggplot(data = filter(
   result_all_country,
   year > 1754,
@@ -220,19 +222,4 @@ ggplot(data = filter(
   )
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](Figs/unnamed-chunk-7-1.png)
