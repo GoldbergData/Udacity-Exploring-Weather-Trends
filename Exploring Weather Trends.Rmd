@@ -32,6 +32,16 @@ city <- read_csv(
   )
   )
 
+cities <- read_csv(
+  'results-3.csv',
+  col_type = cols(
+  year = col_integer(),
+  city = col_character(),
+  country = col_character(),
+  avg_temp = col_double()
+  )
+  )
+
 global <- read_csv(
   'results.csv',
   col_type = cols(
@@ -39,21 +49,33 @@ global <- read_csv(
   avg_temp = col_double()
   )
   )
-
 ```
 
 Start at 1750 to match global data
 ```{r}
-city <- filter(city, year > 1750)
-```
+global$city <- 'global'
+global$country <- 'global'
 
+global <- global %>% 
+  select(year, city, country, avg_temp)
+
+result_all <- bind_rows(global, cities)
+
+# distinct_cities <- cities %>% 
+#  distinct(city)
+
+# test <- map(distinct_cities, geocode)
+# coordinates <- test
+# coordinates <- coordinates[[1]]
+# coordinates <- bind_cols(coordinates, distinct_cities)
+```
 
 #### Function for calculating moving average
 ```{r Function}
 movavg <- function(x, interval = 7) {
   j <- interval
   moving_avg <- vector(mode = 'double', length = length(x))
-  for(i in 1:length(x)) {
+  for(i in seq_along(x)) {
     moving_avg[j] <- mean(x[i:interval])
     if (interval >= length(x)) {
       return(moving_avg)
@@ -65,6 +87,26 @@ movavg <- function(x, interval = 7) {
 }
 ```
 
+```{r}
+result_all <- result_all %>% 
+  group_by(city) %>% 
+  mutate(moving_avg = movavg(avg_temp, interval = 5))
+
+result_all_country <- result_all %>%
+  filter(!is.na(avg_temp)) %>% 
+  group_by(country, year) %>% 
+  summarise(avg_temp = mean(avg_temp, na.rm = TRUE)) %>% 
+  mutate(moving_avg = movavg(avg_temp, interval = 5))
+
+filter(result_all_country, country == 'United States')
+```
+
+```{r}
+ggplot() +
+  geom_line(data = filter(result_all, year > 1754, city %in% c('Chicago', 'global')), 
+       aes(year, moving_avg, color = city)) +
+  geom_line(data = filter(result_all_country, year > 1754, country == 'United States'), aes(year, moving_avg))
+```
 
 
 
