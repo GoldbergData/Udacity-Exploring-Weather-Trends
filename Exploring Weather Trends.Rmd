@@ -42,22 +42,14 @@ global <- read_csv(
 
 ```
 
-```{r}
-filter(city, is.na(avg_temp))
-filter(global, is.na(avg_temp))
-range(global$year)
-range(city$year)
-
-```
-
+Start at 1750 to match global data
 ```{r}
 city <- filter(city, year > 1750)
 ```
 
 
-```{r}
-example <- readxl::read_excel('Moving Average Example.xlsx')
-
+#### Function for calculating moving average
+```{r Function}
 movavg <- function(x, interval = 7) {
   j <- interval
   moving_avg <- vector(mode = 'double', length = length(x))
@@ -71,15 +63,6 @@ movavg <- function(x, interval = 7) {
     j <- j + 1
   }
 }
-
-(movavg(example$Sales))
-example$moving_avg <- (movavg(example$Sales))
-
-function_movavg <- data_frame(movavg(example$Sales))
-example2 <- readxl::read_excel('Moving Average Example.xlsx')
-solution_movavg <- filter(example2, !(is.na(X__2))) %>% 
-  select(X__2) %>% 
-  rename(solution_movavg = X__2)
 ```
 
 
