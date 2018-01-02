@@ -3,8 +3,8 @@ title: 'Udacity Project 1: Exploring Weather Trends'
 author: "Josh Goldberg"
 date: "12/30/2017"
 output:
-  github_document: default
   pdf_document: default
+  github_document: default
   html_document: default
 ---
 
@@ -16,7 +16,17 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE
   )
+
 ```
+
+#### SQL City Query
+SELECT year, avg_temp
+
+FROM city_data
+
+WHERE city = ‘Chicago’
+
+ORDER by year
 
 #### Load Libraries
 ```{r}
